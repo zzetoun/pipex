@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_uti.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/11 19:34:18 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/01/11 19:34:18 by zzetoun          ###   ########.ae       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 size_t  ft_strlen(const char *s)
 {
     size_t  len;
 
-    if (*s == '\0' || s == NULL)
+    if (s == NULL)
         return 0;
     len = 0;
     while (s[len])
@@ -20,10 +32,10 @@ char    *ft_strjoin(char *s1, char *s2)
 
     if (!s1 && !s2)
         return NULL;
-    // if (!s1)
-    //     return (ft_strdup(s2));
-    // if (!s2)
-    //     return (ft_strdup(s1));
+    if (!s1)
+         return (ft_strdup(s2));
+    if (!s2)
+         return (ft_strdup(s1));
     str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
     if (!str)
         return (NULL);
@@ -61,4 +73,22 @@ int ft_free(char **sp_str)
 		free(sp_str[i++]);
 	free(sp_str);
 	return (1);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	idx;
+
+	idx = 0;
+	if (!s1 || !s2)
+		return (-1);
+	while (idx < n && s1[idx] && s2[idx])
+	{
+		if (s1[idx] != s2[idx])
+			return (((unsigned char *)s1)[idx] - ((unsigned char *)s2)[idx]);
+		idx++;
+	}
+	if (idx < n)
+		return (((unsigned char *)s1)[idx] - ((unsigned char *)s2)[idx]);
+	return (0);
 }

@@ -1,6 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/11 19:34:04 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/01/11 19:34:04 by zzetoun          ###   ########.ae       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-static int	ft_print(int fd, const char prnt, va_list args);
+static int	ft_print(int fd, const char prnt, va_list args)
+{
+	if (prnt == 'd' || prnt == 'i')
+		return (ft_putnbr_fd(va_arg(args, int), fd));
+	if (prnt == 'c')
+		return (ft_putchar_fd((char)va_arg(args, int), fd));
+	if (prnt == 's')
+		return (ft_putstr_fd(va_arg(args, char *), fd));
+	if (prnt == '%')
+		return (ft_putchar_fd('%', fd));
+	return (0);
+}
 
 int	ft_printf(int fd, const char *prnt, ...)
 {
@@ -27,17 +50,4 @@ int	ft_printf(int fd, const char *prnt, ...)
 	}
 	va_end(args);
 	return ((int)total);
-}
-
-static int	ft_print(int fd, const char prnt, va_list args)
-{
-	if (prnt == 'd' || prnt == 'i')
-		return (ft_putnbr_fd(va_arg(args, int), fd));
-	if (prnt == 'c')
-		return (ft_putchar_fd((char)va_arg(args, int), fd));
-	if (prnt == 's')
-		return (ft_putstr_fd(va_arg(args, char *), fd));
-	if (prnt == '%')
-		return (ft_putchar_fd('%', fd));
-	return (0);
 }

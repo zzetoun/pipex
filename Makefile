@@ -9,7 +9,7 @@ OBJS	= ${SRCS:.c=.o}
 NAME	= pipex
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Werror -Wextra -fsanitize=address,undefined -g3
+CFLAGS	= -Wall -Werror -Wextra
 
 all: ${NAME}
 
