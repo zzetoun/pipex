@@ -13,7 +13,7 @@
  {
      int     pipefd[2];
      char    buf;
-     pid_t   cpid;
+     pid_t   cpid
     
      if (argc != 2)
      {
