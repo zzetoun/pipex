@@ -12,97 +12,27 @@
 
 #include "pipex.h"
 
-void do_fork()
-{
-	pid_t   cpid;
-	int		fd[2];
 
-	cpid = fork();
-	if (cpid == -1)
-	{
-		perror("fork error");
-		exit(EXIT_FAILURE);
-	}
-	if (cpid == 0)
-	{
-		close(fd[0]);
-		write(1,"1\n",2);
-		write(STDOUT_FILENO, "\n", 1);
-		exit(EXIT_SUCCESS);
-    } 
-    else
-    {
-		wait(NULL);
-		exit(EXIT_SUCCESS);
-     }
-}
-
-char **get_path(char **env)
-{
-	if (env && *env)
-	{
-		while(*env && ft_strncmp(*env, "PATH=", 5) != 0)
-			env++;
-		if(*env)
-			return ft_split(*env + 5, ':');
-	}
-	return NULL;
-}
-
-int	check_file(char **av)
-{
-	return 3;
-}
-int	check_cmd(char **av)
-{
-	return 2;
-}
-
-int	ft_validate(char **av, int ac)
-{
-	int	status;
-	
-	if(!av)
-		return 0;
-	while(av)
-	{
-		status = check_file(av);
-		status += check_cmd(av);
-	}
-	return status;
-}
-void ft_outfile(void)
-{
-
-}
-
-void ft_infile(void)
-{
-
-}
-void do_pipe(void)
-{
-
-}
 int main (int ac, char **av, char **env)
 {
 	//(void) ac;
 	(void) av;
+	(void) env;
 
+	int	i;
+
+	i = 1;
 	if (ac > 4)
 	{
-		ft_infile();
-		while (ac != 1)
+		//ft_infile();
+		while (i < ac)
 		{
-			if (ac == 2)
-				ft_outfile();
-			else
-				do_pipe();
-			ac--;
+			ft_printf(1, "[i]=%d\n", i);
+			i++;
 		}
 	}
 	else
-		prinft(2, "Not Enough arguments");
+		ft_printf(STDERR_FILENO, "Not Enough Arguments");
 	//char *argv[] = {"ls", "-l", NULL};
 
 
@@ -165,7 +95,7 @@ int main (int ac, char **av, char **env)
         // write(1, "af", 2);
         // pipe --> fork 0 dub2(fd_open, in_fd_cmd) --> 
         // execve()
-        // dub2(STDOUT_FILENO, STDIN_FILENO)
+        // dup2(STDOUT_FILENO, STDIN_FILENO)
 		
 		// while (str[++i])  for later use
         //    {
