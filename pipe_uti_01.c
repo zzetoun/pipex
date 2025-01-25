@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:41:50 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/01/23 17:42:31 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:09:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void do_fork()
      }
 }
 
-static char **get_path(char **env)
+char **get_path(char **env)
 {
 	if (env && *env)
 	{
@@ -49,38 +49,41 @@ static char **get_path(char **env)
 	return NULL;
 }
 
-int	check_file(char **av)
-{
-	return 3;
-}
-int	check_cmd(char **av)
-{
-	return 2;
-}
+//int	check_cmd(char **av)
+//{
+//	return 2;
+//}
 
-int	ft_validate(char **av, int ac)
-{
-	int	status;
+//int	ft_validate(char **av, int ac)
+//{
+//	int	status;
 	
-	if(!av)
-		return 0;
-	while(av)
+//	if(!av)
+//		return 0;
+//	while(av)
+//	{
+//		status = check_file(av);
+//		status += check_cmd(av);
+//	}
+//	return status;
+//}
+void pipe_file(char *av, int i)
+{
+	if (i == 1 && ft_strncmp(av, "here_doc", 8) == 0)
+		ft_printf(STDOUT_FILENO, "I am here_doc\n");
+	else if (access(av, F_OK) == -1 && i == 1)
+		ft_printf(STDERR_FILENO, "zsh: no such file or directory: %s\n", av);
+	else if (access(av, R_OK) == -1 && i == 1)
+		ft_printf(STDERR_FILENO, "zsh: permission denied: %s\n", av);
+	else if (access(av, F_OK) == -1 && i > 1)
+			open(av, O_WRONLY | O_CREAT, 0644);
+	else if (access(av, W_OK) == -1 && i > 1)
 	{
-		status = check_file(av);
-		status += check_cmd(av);
+		ft_printf(STDERR_FILENO, "zsh: permission denied: %s\n", av);
+		exit(EXIT_FAILURE);
 	}
-	return status;
 }
-void ft_outfile(void)
-{
+//void do_pipe(char *av, char **env)
+//{
 
-}
-
-void ft_infile(void)
-{
-
-}
-void do_pipe(void)
-{
-
-}
+//}

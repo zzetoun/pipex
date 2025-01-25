@@ -12,27 +12,34 @@
 
 #include "pipex.h"
 
-
 int main (int ac, char **av, char **env)
 {
-	//(void) ac;
-	(void) av;
+	//int	fd[2];
 	(void) env;
-
 	int	i;
 
 	i = 1;
 	if (ac > 4)
 	{
-		//ft_infile();
+		if (ft_strncmp(av[1], "here_doc", 8) == 0 && ac < 6)
+		{
+			ft_printf(STDERR_FILENO, "Arguments Error: here_docs needs 5 args\n");
+			exit(EXIT_SUCCESS);
+		}
 		while (i < ac)
 		{
-			ft_printf(1, "[i]=%d\n", i);
+			if (i == 1 || i == ac - 1)
+				pipe_file(av[i], i);
+			//else
+			//	do_pipe(av[i], env);
 			i++;
 		}
 	}
 	else
-		ft_printf(STDERR_FILENO, "Not Enough Arguments");
+	{
+		ft_printf(STDERR_FILENO, "Arguments Error: pipex needs 4 args\n");
+		exit(EXIT_SUCCESS);
+	}
 	//char *argv[] = {"ls", "-l", NULL};
 
 
@@ -63,14 +70,7 @@ int main (int ac, char **av, char **env)
 	//args++;
 	//execve("/bin/ls", args, NULL);
 
- 	//if (access("infile", R_OK) == 0)
-    //    ft_printf(1, "infile is accessible in reading mode\n");
-    //if (access("outfile", W_OK) == 0)
-    //    ft_printf(1, "ourfile is accessible in writing mode\n");
-    //if (access("outfile", X_OK) == 0)
-    //    ft_printf(1, "outfile is accessible in execution mode\n");
-    //if (access("outfile", R_OK|W_OK) == 0)
-    //    ft_printf(1, "outfile is accessible in writing and reading mode\n");
+ 	
     //if (ac > 3)
     //{
     //    av++;

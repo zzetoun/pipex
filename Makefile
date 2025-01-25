@@ -2,6 +2,7 @@ SRCS =	str_uti.c		\
 		ft_printf.c		\
 		printf_uti.c	\
 		ft_split.c 		\
+		pipe_uti_01.c	\
 		pipex.c
 
 OBJS	= ${SRCS:.c=.o}

@@ -30,3 +30,5 @@
 #endif
 
 void do_fork();
+char **get_path(char **env);
+void pipe_file(char *av, int i);
