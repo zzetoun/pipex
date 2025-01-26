@@ -14,11 +14,11 @@
 
 int main (int ac, char **av, char **env)
 {
-	//int	fd[2];
-	(void) env;
-	int	i;
+	t_pipex	*pipex;
 
-	i = 1;
+	pipex = malloc(sizeof(t_pipex));
+	if (!pipex)
+		return(EXIT_FAILURE);
 	if (ac > 4)
 	{
 		if (ft_strncmp(av[1], "here_doc", 8) == 0 && ac < 6)

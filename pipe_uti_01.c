@@ -6,11 +6,23 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:41:50 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/01/25 16:09:47 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:47:08 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	ft_init_pipex(t_pipex *pipex)
+{
+	pipex->infd = -1;
+	pipex->outfd = -1;
+	pipex->here_doc = 0;
+	pipex->invalid_input = 0;
+	pipex->urandom = 0;
+	pipex->cmd_paths = NULL;
+	pipex->cmd_args = NULL;
+	pipex->cmd_count = 0;
+}
 
 void do_fork()
 {
