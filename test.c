@@ -8,6 +8,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stddef.h>
+#include "pipex.h"
+#include "get_next_line.h"
 
  int main(int argc, char **argv)
  {

@@ -19,5 +19,4 @@ ssize_t ft_putchar_fd(const char prnt, int fd);
 ssize_t ft_putstr_fd(char *s, int fd);
 ssize_t ft_putnbr_fd(long num, int fd);
 
-
 #endif

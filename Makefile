@@ -1,8 +1,11 @@
-SRCS =	str_uti.c		\
-		ft_printf.c		\
+SRCS =	ft_printf.c		\
 		printf_uti.c	\
+		get_next_line.c \
+		str_uti.c		\
 		ft_split.c 		\
-		pipe_uti_01.c	\
+		pipe_uti.c		\
+		pipe_pars.c 	\
+		freedom.c			\
 		pipex.c
 
 OBJS	= ${SRCS:.c=.o}

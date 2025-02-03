@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_check.c                                       :+:      :+:    :+:   */
+/*   pipe_uti.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 19:33:57 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/01/15 15:52:49 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/01/29 18:12:07 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/02/02 18:38:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PIPE_UTI_H
+# define PIPE_UTI_H
 
-int	pipe_access(char *filepath)
-{
-	int	value;
+# include "pipex.h"
 
-	value = 0;
-	value = access(filepath, R_OK);
-	return (value);
-}
+void	setup_pipex(t_pipex *pipex);
+int		ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx);
+int		ft_child(t_pipex *pipex, char **envp, int idx);
+
+#endif
