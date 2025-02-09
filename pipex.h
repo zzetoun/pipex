@@ -29,12 +29,11 @@
 # include "pipe_pars.h"
 # include "pipe_uti.h"
 # include "freedom.h"
+# include "in_out.h"
 
 # define EARGS "error: invalid arguments"
+# define NOACC "error: permission denied"
 # define EUNKN "error: unknown error"
 # define ECFND "error: command not found"
-# define ENOENT "error: no such file or directory"
-
-
 
 #endif

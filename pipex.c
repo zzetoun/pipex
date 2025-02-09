@@ -12,10 +12,10 @@
 
 #include "pipex.h"
 
-int main (int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	int	i;
 	t_pipex	*pipex;
+	int		i;
 
 	pipex = malloc(sizeof(t_pipex));
 	if (!pipex)
@@ -34,5 +34,6 @@ int main (int ac, char **av, char **env)
 	i = -1;
 	while (++i < pipex->cmd_num)
 		wait(NULL);
+	ft_freedom(pipex, 1);
 	return (0);
 }

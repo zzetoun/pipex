@@ -3,9 +3,10 @@ SRCS =	ft_printf.c		\
 		get_next_line.c \
 		str_uti.c		\
 		ft_split.c 		\
+		in_out.c		\
 		pipe_uti.c		\
 		pipe_pars.c 	\
-		freedom.c			\
+		freedom.c		\
 		pipex.c
 
 OBJS	= ${SRCS:.c=.o}

@@ -12,58 +12,58 @@
 
 #include "pipex.h"
 
-size_t  ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    size_t  len;
+	size_t	len;
 
-    if (s == NULL)
-        return 0;
-    len = 0;
-    while (s[len])
-        len++;
-    return (len);
+	if (s == NULL)
+		return (0);
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }
 
-char    *ft_strjoin(char *s1, char *s2, int free_str)
+char	*ft_strjoin(char *s1, char *s2, int free_str)
 {
-    char    *str;
-    int     i;
-    int     j;
+	char	*str;
+	int		i;
+	int		j;
 
-    if (!s1 && !s2)
-        return NULL;
-    if (!s1)
-         return (ft_strdup(s2));
-    if (!s2)
-         return (ft_strdup(s1));
-    str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-    if (!str)
-        return (NULL);
-    i = -1;
-    while(s1[++i])
-        str[i] = s1[i];
-    j = 0;
-    while(s2[j])
-        str[i++] = s2[j++];
-    str[i] = '\0';
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		str[i] = s1[i];
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
 	if (free_str == 1)
 		free(s1);
-    return (str);
+	return (str);
 }
 
-char    *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-    char    *str;
-    int     i;
+	char	*str;
+	int		i;
 
-    i = -1;
-    str = malloc(ft_strlen(s) + 1);
-    if (!str)
-        return (NULL);
-    while (s[++i])
-        str[i] = s[i];
-    str[i] = '\0';
-    return(str);
+	i = -1;
+	str = malloc(ft_strlen(s) + 1);
+	if (!str)
+		return (NULL);
+	while (s[++i])
+		str[i] = s[i];
+	str[i] = '\0';
+	return (str);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -83,6 +83,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (((unsigned char *)s1)[idx] - ((unsigned char *)s2)[idx]);
 	return (0);
 }
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
@@ -95,7 +96,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (ft_strlen(s) < len + start)
 		str = (char *)malloc(sizeof(char) * ft_strlen(s) - start + 1);
 	else
-		str = (char *)malloc(sizeof(char) * len + 1 );
+		str = (char *)malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (0);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:51:08 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/02 19:33:16 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/09 17:07:19 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "pipex.h"
 
+void	ft_close_fd(int fd[]);
 void	ft_free_fd(t_pipex *pipex);
 void	ft_free_array(char **array, int n);
 void	ft_free_2d_array(char ***array, int n);

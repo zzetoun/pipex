@@ -12,24 +12,23 @@
 
 #include "pipex.h"
 
-ssize_t  ft_putchar_fd(char c, int fd)
+ssize_t	ft_putchar_fd(char c, int fd)
 {
-    return (write(fd, &c, 1));
+	return (write(fd, &c, 1));
 }
 
-ssize_t  ft_putstr_fd(char *s, int fd)
+ssize_t	ft_putstr_fd(char *s, int fd)
 {
-    if (!s)
+	if (!s)
 		s = "(null)";
-    return(write(fd, s, ft_strlen(s)));
+	return (write(fd, s, ft_strlen(s)));
 }
 
-ssize_t  ft_putnbr_fd(long n, int fd)
+ssize_t	ft_putnbr_fd(long n, int fd)
 {
-
-    ssize_t		number;
-	ssize_t		total;
-	ssize_t		tmp;
+	ssize_t	number;
+	ssize_t	total;
+	ssize_t	tmp;
 
 	total = 0;
 	if (n < 0)

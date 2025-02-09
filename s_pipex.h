@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:03:39 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/02 19:24:28 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/09 15:39:42 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ typedef struct s_pipex
 	int		infd;
 	int		outfd;
 	int		here_doc;
-	int		invalid_input;
+	int		in_invalid;
+	int		out_invalid;
 	char	**cmd_paths;
 	char	***cmd_args;
 	int		cmd_num;

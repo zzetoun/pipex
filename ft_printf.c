@@ -38,10 +38,10 @@ int	ft_printf(int fd, const char *prnt, ...)
 	while (*prnt)
 	{
 		if (*prnt == '%' && *(prnt + 1))
-        {
+		{
 			tmp = ft_print(fd, *++prnt, args);
-            prnt++;
-        }
+			prnt++;
+		}
 		else
 			tmp = ft_putchar_fd(*prnt++, fd);
 		if (tmp < 0)

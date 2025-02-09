@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-static int ft_free_split(char **sp_str, int kdx)
+static	int	ft_free_split(char **sp_str, int kdx)
 {
 	while (kdx >= 0)
 		free(sp_str[kdx--]);
