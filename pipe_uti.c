@@ -71,31 +71,25 @@ char	*find_path(char *cmd, char **env)
 int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
 {
 	if (pipe(fd) == -1)
-		return (0);
+		return (ft_freedom(pipex, 1), exit(EXIT_FAILURE), 0);
 	*pid = fork();
 	if (*pid == -1)
-		return (ft_close_fd(fd), 0);
+		return (ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE), 0);
 	if (*pid == 0)
 	{
 		if (idx == 0 && pipex->in_invalid == -1)
-		{
-			ft_close_fd(fd);
-			ft_freedom(pipex, 1);
-			exit(EXIT_FAILURE);
-		}
-		if (idx == 0)
+			(ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE));
+		else if (idx == 0)
 			dup2(pipex->infd, STDIN_FILENO);
-		if (idx == pipex->cmd_num - 1)
+		if (idx == pipex->cmd_num - 1 && pipex->in_invalid == -1)
+		(ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE));
+		else if (idx == pipex->cmd_num - 1)
 			dup2(pipex->outfd, STDOUT_FILENO);
 		else
 			dup2(fd[1], STDOUT_FILENO);
 	}
 	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-	}
+		(dup2(fd[0], STDIN_FILENO), ft_close_fd(fd));
 	return (1);
 }
 

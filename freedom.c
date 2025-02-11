@@ -63,9 +63,15 @@ void	ft_freedom(t_pipex *pipex, int type)
 	if (type == 1 || type == 2)
 		ft_free_fd(pipex);
 	if ((type == 1 || type == 3) && pipex->cmd_paths != NULL)
+	{
 		ft_free_array(pipex->cmd_paths, pipex->cmd_num);
+		pipex->cmd_paths = NULL;
+	}
 	if ((type == 1 || type == 4) && pipex->cmd_args != NULL)
+	{
 		ft_free_2d_array(pipex->cmd_args, pipex->cmd_num);
+		pipex->cmd_args = NULL;
+	}
 	if (type == 1 || type == 5)
 		free(pipex);
 }
