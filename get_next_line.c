@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:38:49 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/03 14:52:15 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:37:53 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*ft_read_file(char *buff, int fd)
 			return (NULL);
 		}
 		line[len] = '\0';
-		buff = ft_strjoin(buff, line, 1);
+		buff = ft_strjoin_gnl(buff, line);
 	}
 	free(line);
 	return (buff);
@@ -117,7 +117,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	print = ft_line(buff);
 	if (!print)
-		return (free(buff), NULL);
+	{
+		free(buff);
+		return (NULL);
+	}
 	buff = ft_remain(buff);
 	return (print);
 }

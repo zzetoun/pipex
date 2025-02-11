@@ -1,1 +1,1 @@
-valgrind --leak-check=full --leak-resolution=high -s --trace-origin=yes --trace-children=yes --track-fds=yes --show-leak-kinds=all 
+valgrind --leak-check=full --leak-resolution=high -s --track-origins=yes --trace-children=yes --track-fds=yes --show-leak-kinds=all

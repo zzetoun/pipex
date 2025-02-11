@@ -15,9 +15,11 @@
 
 # include "s_pipex.h"
 
+char *ft_strjoin(char const *s1, char const *s2);
+
 int	ft_error(char *error);
 int	ft_parse(t_pipex *pipex, int ac, char **av);
-int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **env);
+int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **envp);
 int	parse_cmd_args(t_pipex *pipex, int ac, char **av);
 
 #endif

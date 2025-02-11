@@ -6,18 +6,18 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 13:36:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/09 18:11:56 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/11 21:03:22 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **env)
+int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **envp)
 {
 	int		i;
 	char	**cmd;
 
-	pipex->cmd_paths = malloc(sizeof(char *) * (ac - 2 - pipex->here_doc));
+	pipex->cmd_paths = malloc((ac - 2 - pipex->here_doc) * sizeof(char *));
 	if (!pipex->cmd_paths)
 		return (0);
 	i = 1 + pipex->here_doc;
@@ -30,7 +30,7 @@ int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **env)
 			pipex->cmd_paths = NULL;
 			return (0);
 		}
-		pipex->cmd_paths[i - 2 - pipex->here_doc] = find_path(cmd[0], env);
+		pipex->cmd_paths[i - 2 - pipex->here_doc] = find_path(cmd[0], envp);
 		ft_free_array(cmd, -1);
 	}
 	return (1);
@@ -78,4 +78,28 @@ int	ft_error(char *error)
 	ft_printf(2, "pipex: %s\n", error);
 	exit(EXIT_FAILURE);
 	return (1);
+}
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		str[i] = s1[i];
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	return (str);
 }

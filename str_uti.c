@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char *s1, char *s2, int free_str)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*str;
 	int		i;
@@ -46,7 +46,6 @@ char	*ft_strjoin(char *s1, char *s2, int free_str)
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';
-	if (free_str == 1)
 		free(s1);
 	return (str);
 }
@@ -70,15 +69,12 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	idx;
 
-	idx = 0;
+	idx = -1;
 	if (!s1 || !s2)
 		return (-1);
-	while (idx < n && s1[idx] && s2[idx])
-	{
+	while (++idx < n && s1[idx] && s2[idx])
 		if (s1[idx] != s2[idx])
 			return (((unsigned char *)s1)[idx] - ((unsigned char *)s2)[idx]);
-		idx++;
-	}
 	if (idx < n)
 		return (((unsigned char *)s1)[idx] - ((unsigned char *)s2)[idx]);
 	return (0);
@@ -92,7 +88,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (0);
 	if (ft_strlen(s) < start)
-		return (malloc(sizeof(char)));
+		return (calloc(1, sizeof(char)));
 	if (ft_strlen(s) < len + start)
 		str = (char *)malloc(sizeof(char) * ft_strlen(s) - start + 1);
 	else
@@ -102,5 +98,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = -1;
 	while (s[start + ++i] && i < len)
 		str[i] = s[start + i];
+	str[i] = '\0';
 	return (str);
 }
