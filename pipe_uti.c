@@ -74,13 +74,15 @@ int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
 		return (0);
 	*pid = fork();
 	if (*pid == -1)
-	{
-		close(fd[0]);
-		close(fd[1]);
-		return (0);
-	}
+		return (ft_close_fd(fd), 0);
 	if (*pid == 0)
 	{
+		if (idx == 0 && pipex->in_invalid == -1)
+		{
+			ft_close_fd(fd);
+			ft_freedom(pipex, 1);
+			exit(EXIT_FAILURE);
+		}
 		if (idx == 0)
 			dup2(pipex->infd, STDIN_FILENO);
 		if (idx == pipex->cmd_num - 1)

@@ -69,8 +69,8 @@ int	ft_parse(t_pipex *pipex, int ac, char **av)
 	}
 	pipe_infile(pipex, av);
 	pipe_outfile(pipex, av, ac);
-	if (pipex->in_invalid == -1 || pipex->out_invalid == -1)
-		return (0);
+	// if (pipex->in_invalid == -1 || pipex->out_invalid == -1)
+	// 	return (0);
 	pipex->cmd_num = ac - 3 - pipex->here_doc;
 	return (1);
 }
