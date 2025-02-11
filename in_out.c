@@ -16,7 +16,7 @@ void	read_here_doc(t_pipex *pipex, char **av, int *fd)
 {
 	char	*doc;
 
-	free(pipex);
+	ft_freedom(pipex, 1);
 	close(fd[0]);
 	ft_printf(1, "here_doc >: ");
 	while (1)
@@ -58,9 +58,7 @@ void	pipe_here_doc(t_pipex *pipex, char **av)
 		read_here_doc(pipex, av, fd);
 	else
 	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
+		(dup2(fd[0], STDIN_FILENO), ft_close_fd(fd));
 		wait(NULL);
 	}
 }
