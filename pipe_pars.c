@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 13:36:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/12 11:41:18 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:21:46 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **envp)
 	int		i;
 	char	**cmd;
 
-	pipex->cmd_paths = malloc((ac - 2 - pipex->here_doc) * sizeof(char *));
+	pipex->cmd_paths = calloc((ac - 2 - pipex->here_doc), sizeof(char *));
 	if (!pipex->cmd_paths)
 		return (0);
 	i = 1 + pipex->here_doc;
@@ -40,7 +40,7 @@ int	parse_cmd_args(t_pipex *pipex, int ac, char **av)
 {
 	int		i;
 
-	pipex->cmd_args = malloc(sizeof(char **) * (ac - 2 - pipex->here_doc));
+	pipex->cmd_args = calloc((ac - 2 - pipex->here_doc), sizeof(char **));
 	if (!pipex->cmd_args)
 		return (0);
 	i = 1 + pipex->here_doc;

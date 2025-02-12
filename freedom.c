@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:50:37 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/09 17:06:53 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:30:41 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,29 @@
 void	ft_free_fd(t_pipex *pipex)
 {
 	if (pipex->infd != -1)
+	{
 		close(pipex->infd);
+		pipex->infd = -1;
+	}
 	if (pipex->outfd != -1)
+	{
 		close(pipex->outfd);
+		pipex->outfd = -1;
+	}
 }
 
 void	ft_close_fd(int fd[])
 {
 	if (fd[0] != -1)
+	{
 		close(fd[0]);
+		fd[0] = -1;
+	}
 	if (fd[1] != -1)
+	{
 		close(fd[1]);
+		fd[1] = 1;
+	}
 }
 
 void	ft_free_array(char **array, int n)
@@ -60,6 +72,8 @@ void	ft_free_2d_array(char ***array, int n)
 
 void	ft_freedom(t_pipex *pipex, int type)
 {
+	if (!pipex)
+		return ;
 	if (type == 1 || type == 2)
 		ft_free_fd(pipex);
 	if ((type == 1 || type == 3) && pipex->cmd_paths != NULL)
@@ -73,5 +87,8 @@ void	ft_freedom(t_pipex *pipex, int type)
 		pipex->cmd_args = NULL;
 	}
 	if (type == 1 || type == 5)
+	{
 		free(pipex);
+		pipex = NULL;
+	}
 }

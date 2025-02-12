@@ -32,8 +32,10 @@
 # include "in_out.h"
 
 # define EARGS "error: invalid arguments"
+
 # define NOACC "error: permission denied"
 # define EUNKN "error: unknown error"
-# define ECFND "error: command not found"
+# define ECFND 127
+# define EPERM 126
 
 #endif

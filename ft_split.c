@@ -87,9 +87,25 @@ char	**ft_assign(char *s, char c, char **sp_str)
 char	**ft_split(char *s, char c)
 {
 	char	**sp_str;
+	int		i;
+	int		all_spaces;
 
 	if (!s)
 		return (NULL);
+	all_spaces = 1;
+	i = -1;
+	while (s[++i])
+		if (s[i] != ' ')
+			all_spaces = 0;
+	if (!s[0] || all_spaces)
+	{
+		sp_str = malloc(sizeof(char *) * 2);
+		if (!sp_str)
+			return (NULL);
+		sp_str[0] = ft_strdup(" ");
+		sp_str[1] = NULL;
+		return (sp_str);
+	}
 	sp_str = malloc(sizeof(char *) * (ft_counter(s, c) + 1));
 	if (sp_str && ft_allocate(s, c, sp_str) != 0)
 		return (ft_assign(s, c, sp_str));

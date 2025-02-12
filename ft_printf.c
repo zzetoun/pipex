@@ -45,7 +45,7 @@ int	ft_printf(int fd, const char *prnt, ...)
 		else
 			tmp = ft_putchar_fd(*prnt++, fd);
 		if (tmp < 0)
-			return (-1);
+			return (va_end(args), -1);
 		total += tmp;
 	}
 	va_end(args);

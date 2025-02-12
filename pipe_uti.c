@@ -36,11 +36,11 @@ char	*find_path(char *cmd, char **envp)
 	char	**paths;
 	char	*path;
 
-	if (cmd && access(cmd, F_OK) == 0)
-		return (ft_substr(cmd, 0, ft_strlen(cmd)));
 	paths = get_path(envp);
 	if (!paths)
 		return (NULL);
+	else if (cmd && access(cmd, F_OK) == 0 && cmd[0] != '/') // <--- need to fix this
+		return (ft_substr(cmd, 0, ft_strlen(cmd)));
 	i = -1;
 	while (paths[++i])
 	{
@@ -50,7 +50,7 @@ char	*find_path(char *cmd, char **envp)
 		path = ft_strjoin_gnl(path, cmd);
 		if (!path)
 			return (ft_free_array(paths, -1), NULL);
-		if (path && access(path, F_OK) == 0)
+		if (access(path, F_OK) == 0)
 			return (ft_free_array(paths, -1), path);
 		free(path);
 	}
@@ -66,11 +66,12 @@ int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
 		return (ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE), 0);
 	if (*pid == 0)
 	{
+
 		if (idx == 0 && pipex->in_invalid == -1)
 			(ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE));
 		else if (idx == 0)
 			dup2(pipex->infd, STDIN_FILENO);
-		if (idx == pipex->cmd_num - 1 && pipex->in_invalid == -1)
+		if (idx == pipex->cmd_num - 1 && pipex->out_invalid == -1)
 			(ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE));
 		else if (idx == pipex->cmd_num - 1)
 			dup2(pipex->outfd, STDOUT_FILENO);
@@ -85,28 +86,29 @@ int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
 	return (1);
 }
 
-int	ft_child(t_pipex *pipex, char **envp, int idx)
+int	ft_child(t_pipex *pipex, char **envp, pid_t *pid, int idx)
 {
-	pid_t	pid;
 	int		fd[2];
 
-	if (!ft_fork_pipe(pipex, fd, &pid, idx))
+	if (!ft_fork_pipe(pipex, fd, pid, idx))
 		return (0);
-	if (pid == 0)
+	if (*pid == 0)
 	{
 		ft_close_fd(fd);
 		if (pipex->cmd_paths[idx])
 		{
 			ft_free_fd(pipex);
 			execve(pipex->cmd_paths[idx], pipex->cmd_args[idx], envp);
+			ft_printf(2, "pipex: permission denied: %s\n",
+				pipex->cmd_args[idx][0]);
+			ft_freedom(pipex, 1);
+			exit(EPERM);
 		}
 		else
 			ft_printf(2, "pipex: command not found: %s\n",
 				pipex->cmd_args[idx][0]);
 		ft_freedom(pipex, 1);
-		exit(EXIT_FAILURE);
+		exit(ECFND);
 	}
-	else
-		ft_close_fd(fd);
 	return (1);
 }

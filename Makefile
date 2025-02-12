@@ -12,7 +12,7 @@ SRCS =	ft_printf.c		\
 OBJS	= ${SRCS:.c=.o}
 
 NAME	= pipex
-CC		= cc
+CC		= cc -g3 #--analyzer
 RM		= rm -f
 CFLAGS	= -Wall -Werror -Wextra
 

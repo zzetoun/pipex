@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:03:39 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/09 15:39:42 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:59:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_pipex
 	char	**cmd_paths;
 	char	***cmd_args;
 	int		cmd_num;
+	int		status;
+	pid_t	pid;
 }	t_pipex;
 
 #endif

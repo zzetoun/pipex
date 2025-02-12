@@ -22,12 +22,15 @@ void	setup_pipex(t_pipex *pipex)
 	pipex->cmd_paths = NULL;
 	pipex->cmd_args = NULL;
 	pipex->cmd_num = 0;
+	pipex->status = -1;
+	pipex->pid = -1;
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	t_pipex	*pipex;
 	int		i;
+	int		status;
 
 	pipex = malloc(sizeof(t_pipex));
 	if (!pipex)
@@ -36,16 +39,17 @@ int	main(int ac, char **av, char **envp)
 	if (!ft_parse(pipex, ac, av))
 		return (ft_freedom(pipex, 1), EXIT_FAILURE);
 	if (!parse_cmd_paths(pipex, ac, av, envp))
-		return (ft_freedom(pipex, 1), ft_error(EARGS));
+		return (ft_freedom(pipex, 1), ft_error("pathes error"));
 	if (!parse_cmd_args(pipex, ac, av))
-		return (ft_freedom(pipex, 1), ft_error(EARGS));
+		return (ft_freedom(pipex, 1), ft_error("args error"));
 	i = -1;
 	while (++i < pipex->cmd_num)
-		if (!ft_child(pipex, envp, i))
+		if (!ft_child(pipex, envp, &pipex->pid, i))
 			return (ft_freedom(pipex, 1), ft_error(EUNKN));
 	i = -1;
-	while (++i < pipex->cmd_num)
+	waitpid(pipex->pid, &pipex->status, 0);
+	while (++i < pipex->cmd_num - 1)
 		wait(NULL);
-	ft_freedom(pipex, 1);
-	return (0);
+	status = pipex->status;
+	return (ft_freedom(pipex, 1), WEXITSTATUS(status));
 }
