@@ -6,16 +6,17 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:41:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/11 21:00:29 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/12 11:43:10 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	read_here_doc(char **av, int *fd)
+void	read_here_doc(t_pipex *pipex, char **av, int *fd)
 {
 	char	*doc;
 
+	ft_freedom(pipex, 1);
 	close(fd[0]);
 	ft_printf(1, "pipex here_doc >: ");
 	while (1)
@@ -53,18 +54,16 @@ void	pipe_here_doc(t_pipex *pipex, char **av)
 	if (pid == -1)
 	{
 		ft_close_fd(fd);
-		perror("here_doc: fork"); 
+		perror("here_doc: fork");
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
-	{
-		ft_freedom(pipex, 1);
-		read_here_doc(av, fd);
-	}
+		read_here_doc(pipex, av, fd);
 	else
 	{
 		wait(NULL);
-		(dup2(fd[0], STDIN_FILENO), ft_close_fd(fd));
+		dup2(fd[0], STDIN_FILENO);
+		ft_close_fd(fd);
 	}
 }
 

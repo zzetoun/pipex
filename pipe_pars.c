@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 13:36:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/11 21:03:22 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/12 11:41:18 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	ft_error(char *error)
 	exit(EXIT_FAILURE);
 	return (1);
 }
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;

@@ -12,7 +12,6 @@
 
 #include "pipex.h"
 
-
 char	**get_path(char **envp)
 {
 	char	*path;
@@ -36,7 +35,6 @@ char	*find_path(char *cmd, char **envp)
 	int		i;
 	char	**paths;
 	char	*path;
-	char	*full_path;
 
 	if (cmd && access(cmd, F_OK) == 0)
 		return (ft_substr(cmd, 0, ft_strlen(cmd)));
@@ -49,14 +47,12 @@ char	*find_path(char *cmd, char **envp)
 		path = ft_strjoin(paths[i], "/");
 		if (!path)
 			return (ft_free_array(paths, -1), NULL);
-		full_path = ft_strjoin(path, cmd);
-		free(path);
-		path = NULL;
-		if (!full_path)
+		path = ft_strjoin_gnl(path, cmd);
+		if (!path)
 			return (ft_free_array(paths, -1), NULL);
-		if (access(full_path, F_OK) == 0)
-			return (ft_free_array(paths, -1), full_path);
-		free(full_path);
+		if (path && access(path, F_OK) == 0)
+			return (ft_free_array(paths, -1), path);
+		free(path);
 	}
 	return (ft_free_array(paths, -1), NULL);
 }
@@ -82,7 +78,10 @@ int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
 			dup2(fd[1], STDOUT_FILENO);
 	}
 	else
-		(dup2(fd[0], STDIN_FILENO), ft_close_fd(fd));
+	{
+		dup2(fd[0], STDIN_FILENO);
+		ft_close_fd(fd);
+	}
 	return (1);
 }
 
