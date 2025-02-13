@@ -39,8 +39,6 @@ char	*find_path(char *cmd, char **envp)
 	paths = get_path(envp);
 	if (!paths)
 		return (NULL);
-	else if (cmd && access(cmd, F_OK) == 0 && cmd[0] != '/') // <--- need to fix this
-		return (ft_substr(cmd, 0, ft_strlen(cmd)));
 	i = -1;
 	while (paths[++i])
 	{
@@ -54,7 +52,10 @@ char	*find_path(char *cmd, char **envp)
 			return (ft_free_array(paths, -1), path);
 		free(path);
 	}
-	return (ft_free_array(paths, -1), NULL);
+	ft_free_array(paths, -1);
+	if (cmd && access(cmd, F_OK) == 0)
+		return (ft_substr(cmd, 0, ft_strlen(cmd)));
+	return (NULL);
 }
 
 int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
