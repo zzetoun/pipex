@@ -67,7 +67,6 @@ int	ft_fork_pipe(t_pipex *pipex, int fd[2], pid_t *pid, int idx)
 		return (ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE), 0);
 	if (*pid == 0)
 	{
-
 		if (idx == 0 && pipex->in_invalid == -1)
 			(ft_close_fd(fd), ft_freedom(pipex, 1), exit(EXIT_FAILURE));
 		else if (idx == 0)

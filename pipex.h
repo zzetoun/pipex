@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stddef.h>
+# include <stdint.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "str_uti.h"
@@ -32,7 +33,6 @@
 # include "in_out.h"
 
 # define EARGS "error: invalid arguments"
-
 # define NOACC "error: permission denied"
 # define EUNKN "error: unknown error"
 # define ECFND 127

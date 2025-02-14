@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 13:36:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/12 17:21:46 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:59:26 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **envp)
 	int		i;
 	char	**cmd;
 
-	pipex->cmd_paths = calloc((ac - 2 - pipex->here_doc), sizeof(char *));
+	pipex->cmd_paths = ft_calloc((ac - 2 - pipex->here_doc), sizeof(char *));
 	if (!pipex->cmd_paths)
 		return (0);
 	i = 1 + pipex->here_doc;
@@ -40,7 +40,7 @@ int	parse_cmd_args(t_pipex *pipex, int ac, char **av)
 {
 	int		i;
 
-	pipex->cmd_args = calloc((ac - 2 - pipex->here_doc), sizeof(char **));
+	pipex->cmd_args = ft_calloc((ac - 2 - pipex->here_doc), sizeof(char **));
 	if (!pipex->cmd_args)
 		return (0);
 	i = 1 + pipex->here_doc;
@@ -80,27 +80,24 @@ int	ft_error(char *error)
 	return (1);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_calloc(size_t counter, size_t size)
 {
-	char	*str;
-	int		i;
-	int		j;
+	unsigned char	*s;
+	void			*ptr;
+	size_t			n;
 
-	if (!s1 && !s2)
+	if (size && counter > SIZE_MAX / size)
 		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
+	ptr = malloc(size * counter);
+	if (!ptr)
 		return (NULL);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	return (str);
+	s = (unsigned char *)ptr;
+	n = size * counter;
+	while (n > 0)
+	{
+		*s = 0;
+		s++;
+		n--;
+	}
+	return (ptr);
 }

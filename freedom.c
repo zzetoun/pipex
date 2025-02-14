@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:50:37 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/12 17:30:41 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:07:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ void	ft_free_array(char **array, int n)
 	i = -1;
 	if (n == -1)
 		while (array[++i])
-			free(array[i]);
+			(free(array[i]), array[i] = NULL);
 	else
 		while (++i < n)
 			if (array[i])
-				free(array[i]);
+				(free(array[i]), array[i] = NULL);
 	free(array);
+	array = NULL;
 }
 
 void	ft_free_2d_array(char ***array, int n)
