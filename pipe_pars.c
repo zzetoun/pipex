@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 13:36:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/14 18:59:26 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/02/15 13:25:10 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **envp)
 {
 	int		i;
+	int		idx;
 	char	**cmd;
 
 	pipex->cmd_paths = ft_calloc((ac - 2 - pipex->here_doc), sizeof(char *));
@@ -23,14 +24,18 @@ int	parse_cmd_paths(t_pipex *pipex, int ac, char **av, char **envp)
 	i = 1 + pipex->here_doc;
 	while (++i < ac - 1)
 	{
+		idx = i - 2 - pipex->here_doc;
 		cmd = ft_split(av[i], ' ');
 		if (!cmd)
 		{
-			ft_free_array(pipex->cmd_paths, i - 2 - pipex->here_doc);
+			ft_free_array(pipex->cmd_paths, idx);
 			pipex->cmd_paths = NULL;
 			return (0);
 		}
-		pipex->cmd_paths[i - 2 - pipex->here_doc] = find_path(cmd[0], envp);
+		pipex->cmd_paths[idx] = find_path(cmd[0], envp);
+		if (pipex->cmd_paths[idx] == NULL
+			&& cmd[0] && access(cmd[0], F_OK) == 0)
+			pipex->cmd_paths[idx] = ft_substr(cmd[0], 0, ft_strlen(cmd[0]));
 		ft_free_array(cmd, -1);
 	}
 	return (1);
